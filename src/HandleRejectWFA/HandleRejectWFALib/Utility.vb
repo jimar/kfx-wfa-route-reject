@@ -31,12 +31,11 @@ Module Utility
     ''' <param name="path"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function PathFix(ByVal path As String)
+    Public Function PathFix(ByVal path As String) As String
         If Right(path, 1) <> "\" Then
             path = path & "\"
         End If
         Return path
     End Function
-
 
 End Module
