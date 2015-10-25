@@ -53,6 +53,9 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>keyfile.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Kofax.Capture.ACWFLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=2a06c44ecf114f0f, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -139,6 +142,11 @@
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(TargetPath)" "$(ProjectDir)..\..\..\dist"
+copy /Y "$(ProjectDir)HandleRejectWFA.aex" "$(ProjectDir)..\..\..\dist"
+copy /Y "$(ProjectDir)\config\HandleRejectWFAConfig.xml" "$(ProjectDir)..\..\..\dist"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

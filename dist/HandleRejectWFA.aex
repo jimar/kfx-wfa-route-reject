@@ -1,0 +1,10 @@
+[Workflow Agents]
+Handle Reject Workflow Agent
+
+[Handle Reject Workflow Agent]
+WorkflowAgentID=HandleRejectWFA
+WorkflowAgentProgID=HandleRejectWFALib.Agent
+WorkflowAgentFile=HandleRejectWFALib.dll
+Description=Handles rejected batches and routes them to a configured module.
+Version=0.1
+SupportsNonImageFiles=True
