@@ -12,14 +12,29 @@ Class ConfigSettings
 
     ' Xml nodes for config file
     Private Const XML_ROOT_NODE As String = "Config"
+    Private Const XML_NODE_LOG_DIR As String = "LogDirectory"
     Private Const XML_NODE_BATCH_CLASS_CONFIG As String = "BatchClassConfig"
     Private Const XML_PROP_BATCH_CLASS As String = "BatchClass"
     Private Const XML_NODE_ERR_MSG_BATCH_FIELD As String = "ErrorMsgBatchField"
     Private Const XML_NODE_ROUTE_TO_MODULE_ID As String = "RouteToModuleName"
     Private Const XML_NODE_GENERIC_ERROR_MESSAGE As String = "GenericErrorMessage"
 
+    Private _logDirectory As String
     Private _batchClassSettings As Dictionary(Of String, BatchClassConfig) = Nothing
     Private _genericErrorMessage As String = Nothing
+
+
+    ''' <summary>
+    ''' Directory where we should do logging
+    ''' </summary>
+    ''' <value></value>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public ReadOnly Property LogDirectory As String
+        Get
+            Return _logDirectory
+        End Get
+    End Property
 
     ''' <summary>
     ''' Generic error message. Used when no other error message could be determined.
@@ -40,7 +55,14 @@ Class ConfigSettings
     ''' <returns></returns>
     ''' <remarks></remarks>
     Public Function GetBatchClassSettings(ByVal batchClass As String) As BatchClassConfig
-        Return _batchClassSettings(batchClass)
+
+        Dim config As BatchClassConfig = Nothing
+        If _batchClassSettings.TryGetValue(batchClass, config) Then
+            Return config
+        End If
+
+        Return Nothing
+
     End Function
 
     Public Sub New()
@@ -54,6 +76,9 @@ Class ConfigSettings
 
                 Dim xd As XmlDocument = New XmlDocument
                 xd.Load(configFile)
+
+                ' Logging directory
+                _logDirectory = GetTextValue(xd, XML_ROOT_NODE & "/" & XML_NODE_LOG_DIR)
 
                 ' Generic error message
                 _genericErrorMessage = GetTextValue(xd, XML_ROOT_NODE & "/" & XML_NODE_GENERIC_ERROR_MESSAGE)

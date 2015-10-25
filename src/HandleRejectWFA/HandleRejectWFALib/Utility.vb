@@ -38,4 +38,47 @@ Module Utility
         Return path
     End Function
 
+
+    ''' <summary>
+    ''' Returns the name of the current machine
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function GetMachineName() As String
+        Return System.Environment.MachineName
+    End Function
+
+    ''' <summary>
+    ''' Returns the ID of the current process
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function GetProcessID() As String
+        Return System.Diagnostics.Process.GetCurrentProcess().Id.ToString()
+    End Function
+
+
+    ''' <summary>
+    ''' Pads the origVal parameter by adding padPrefix to the beginning and padSuffix to the end
+    ''' as long as the string is less than maxLen
+    ''' </summary>
+    ''' <param name="origVal"></param>
+    ''' <param name="padPrefix"></param>
+    ''' <param name="padSuffix"></param>
+    ''' <param name="maxLen"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Function PadString(ByVal origVal As String, ByVal padPrefix As String, ByVal padSuffix As String, ByVal maxLen As Integer) As String
+
+        Dim newVal As String = padPrefix & origVal & padSuffix
+        If origVal.Length >= maxLen Then
+            Return origVal
+        ElseIf newVal.Length > maxLen Then
+            Return origVal  ' The new value is longer than the max. Stay with the original value.
+        Else
+            Return PadString(newVal, padPrefix, padSuffix, maxLen)
+        End If
+
+    End Function
+
 End Module

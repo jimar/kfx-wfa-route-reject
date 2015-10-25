@@ -87,8 +87,11 @@
   <ItemGroup>
     <Compile Include="Agent.vb" />
     <Compile Include="ConfigSettings.vb" />
+    <Compile Include="ExceptionHandler.vb" />
     <Compile Include="Exceptions.vb" />
     <Compile Include="KCSettings.vb" />
+    <Compile Include="KofaxCaptureSDKExtensions.vb" />
+    <Compile Include="Log.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
